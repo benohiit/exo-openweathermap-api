@@ -1,15 +1,18 @@
-import logo from './logo.svg';
+
 import './App.css';
 import Search from './components/search';
 import FetchAPI from './components/fetch';
 import { useState } from 'react';
 
 function App() {
-
   const [country, setCountry] = useState('');
 
   const handleCallback = (childData) => {
     setCountry(childData);
+  }
+
+  const nameFromRecent = (name) => {
+    setCountry(name);
   }
 
   return (
@@ -18,7 +21,8 @@ function App() {
             <h2>React Weather App</h2>
       
         <Search callBack={handleCallback} />
-        <FetchAPI toSearch={country}/>
+        <FetchAPI 
+          toSearch={country} updateSearch={nameFromRecent}/>
       </header>
     </div>
   );
