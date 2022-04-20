@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ListRecent from "./list"
 
-const Fetch = ({ toSearch }) => {
+const Fetch = ({ toSearch, updateSearch }) => {
   const apiKey = process.env.REACT_APP_API_KEY;   // les variabnles d'environement doivent toujours commencer par "REACT_APP"
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${toSearch}&appid=${apiKey}`;
   const [apiData, setState] = useState('');
@@ -45,7 +45,7 @@ const Fetch = ({ toSearch }) => {
 
               <p className="h5">
                 <i className="fas fa-map-marker-alt"></i>{' '}
-                <strong>{apiData.name}</strong>
+                <strong>{apiData.name} ({apiData.sys.country})</strong>
               </p>
               <p className="h1">
                 {kelvinToCelsius(apiData.main.temp)}&deg; C

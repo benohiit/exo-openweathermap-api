@@ -1,19 +1,18 @@
 
-const List = ({ props }) => {
+const List = ( props ) => {
 
-    const modifySearchFromRecentList = (e) =>{
-        e.preventDefault();
+    const modifySearchFromRecentList = (country) =>{
 
         props.modifySearchFromRecentList(country);
     }
 
     const RecentPlacesSearch = props.list.map(
-        s => <PlaceRow key={s.id} {...s} />
+        s => <PlaceRow key={s.id} {...s} onModify={modifySearchFromRecentList}/>
     ); 
 
     return (
             <table>
-                <LastSearchHead />
+                {props.list.length >0 && (<LastSearchHead />)}
                 <tbody>
                     {RecentPlacesSearch}
                 </tbody>
@@ -29,10 +28,13 @@ const LastSearchHead = () => (
     </thead>
 );
 
-const PlaceRow = ({ name }) => (
+const PlaceRow = ({ name, onModify }) => (
     <tr>
-        <td><a href="#" rel="noopener noreferrer" onClick={modifySearchFromRecentList(name)}> {name}</a></td>
+        <td><a href="#" rel="noopener noreferrer" onClick={()=>onModify(name)}> {name}</a></td>
     </tr>
 );
+List.defaultProps = {
+    list : []
+}
 
 export default List;
